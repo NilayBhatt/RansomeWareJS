@@ -5,6 +5,7 @@
   "main": "main.js",
   "dependencies": {
     "bindings": "^1.2.1",
+    "dotenv": "^4.0.0",
     "file-encryptor": "^0.1.1",
     "file-finder": "^0.1.2",
     "fs-finder": "^1.8.1",

