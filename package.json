@@ -8,6 +8,7 @@
     "file-encryptor": "^0.1.1",
     "file-finder": "^0.1.2",
     "fs-finder": "^1.8.1",
+    "node-rsa": "^0.4.2",
     "pretty-bytes": "^2.0.1",
     "secure-random-string": "^1.0.0",
     "ursa": "^0.9.4",

