@@ -9,5 +9,23 @@ console.log(privkeypem.toString('ascii'));
 console.log(pubkeypem.toString('ascii'));
 
 
+var privkey = ursa.createPrivateKey(privkeypem);
+var pubkey = ursa.createPublicKey(pubkeypem);
+
+msg = "IT’S A SECRET TO EVERYBODY.";
+
+console.log('Encrypt with Alice Public;');
+enc = pubkeyAlice.encrypt(msg, 'utf8', 'base64');
+console.log('encrypted', enc, '\n');
+//console.log('signed', sig, '\n');
+
+console.log('Decrypt with Alice Private;');
+rcv = privkeyAlice.decrypt(enc, 'base64', 'utf8');
+if (msg !== rcv) {
+  throw new Error("invalid decrypt");
+}
+console.log(rcv);
+
+
 
 

