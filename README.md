@@ -27,7 +27,7 @@ install the package
 
 Explain how to run the automated tests for this system
 
-
+	
 
 ## Deployment
 
@@ -42,4 +42,4 @@ Add additional notes about how to deploy this on a live system
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License 
