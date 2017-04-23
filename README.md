@@ -10,13 +10,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-.....
 node.js --version 7.9+	node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient
 
 npm --version 2.7.1+	npm is the package manager for JavaScript and the world’s largest software registry. Discover packages of reusable code — and assemble them in powerful new ways.
 
 electorn --version 1.6.5+	Electron is a framework for creating native applications with web technologies like JavaScript, HTML, and CSS.
-.....
+
 
 ### Installing
 
