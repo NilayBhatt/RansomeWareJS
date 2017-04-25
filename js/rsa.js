@@ -1,4 +1,4 @@
-var ursa = require('ursa');
+var ursa = require('ursa-purejs');
 var privkeypem = '-----BEGIN RSA PRIVATE KEY----- \n'+
 'MIICXQIBAAKBgQDZSCnqlU26QVvPINDZ5Om4nSG0lLIbzgpEh4IEo9CFIN8E29Lr\n'+
 'qdW+D3p6mAjy2QO882ogMqjsrPhH3XSg/C46QcSg1wXfv0p6qN1uIOvtVU1ItZ0l\n'+
