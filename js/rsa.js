@@ -25,16 +25,17 @@ var pubkeypem = '-----BEGIN PUBLIC KEY-----\n'+
 var privkey = ursa.createPrivateKey(privkeypem);
 var pubkey = ursa.createPublicKey(pubkeypem);
 
+module.export.privkey = privkey;
+
 enc = pubkey.encrypt(msg, 'utf8', 'base64');
 
 rcv = privkey.decrypt(enc, 'base64', 'utf8');
 
-app.get("/foo-cryptor-trudy", function(req, res) {
+
+app.post("/foo-cryptor-trudy", function(req, res) {
     if(req.query.CcardNumber != '4444444444444444') {
         return res.send({"status": "error", "message": "Incorrect card number"});
     } else {
         return res.send(privkey.decrypt(req.query.key, 'base64', 'utf8'));
     }
 });
-
-

