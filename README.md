@@ -23,11 +23,16 @@ install the package
 
 
 
-## Testing
+## Dependencies
 
-Explain how to run the automated tests for this system
-
-	
+dotenv (npm module) - Dotenv is a zero-dependency module that loads environment variables 
+fs-finder (npm module) - File system finder 
+fs (Native Node.js Library)- File I/O using simple wrappers around standard POSIX functions.
+node-rsa (npm module) - Node.js RSA library
+file-encryptor (npm module) - Encrypts files using Node's built-in Cipher class. Encryption is stream-based for low memory footprint.
+child_process (Native Node.js Library) - used to spawn a shell and runs a command within that shell
+secure-random-string (npm module) - generates a cryptographically secure random string with a given length
+ursa-purejs (npm module) - A pure-js drop-in replacement for URSA, using node-rsa behind the scenes
 
 ## Deployment
 
