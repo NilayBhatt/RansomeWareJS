@@ -6,7 +6,7 @@ We are using  AES-192 CTR for our symetric encryption for files. The reason why 
 
 The encryption is just as strong as how we handle the key. Using the same key for different computers will make the ransomware insignificant. Thus we create a 64-bit secure-random key everytime for every computer that the ransomeware will attack. Also we cannot store the key in HDD, so we keep the key in memory and then we encrypt the key with an asymmetric RSA encryption so it will be harder to run cryptanalysis. The RSA is used to send trudy encrypted key of the AES. The RSA is running on Trudy's computer such that upon verified payment Trudy would use its private key to decrypt the key and send it to the local running program for it to decrypt the .foo files   
 
-The script can be delivered using an phishing email. 
+The delivery method can range from using an phishing email to a video file in browser. 
 
 ## Getting Started
 
@@ -23,7 +23,11 @@ electorn --version 1.6.5+	Electron is a framework for creating native applicatio
 
 ### Installing
 
-install the package
+To run this project one needs to have installed node, npm and electron. Once installed, run
+
+```npm install```
+
+```npm start```
 
 
 
